@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('berita', function (Blueprint $table) {
             $table->id();
+            $table->string('judul');
+            $table->text('isi');
+            $table->string('gambar');
+            $table->enum('status',["publish","pending"])->default('pending');
             $table->timestamps();
         });
     }
