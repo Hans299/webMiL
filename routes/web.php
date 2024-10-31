@@ -18,7 +18,6 @@ Auth::routes([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function(){
-    //
     Route::get('/dashboard',[dashboardController::class,'index']);
     Route::middleware([superAdminMiddleware::class])->name('superadmin.')->prefix('superadmin')->group(function () {
         Route::resource('user', UserController::class);
@@ -26,7 +25,7 @@ Route::middleware('auth')->group(function(){
     });
     
     //
-    Route::middleware([AdminMiddleware::class])->name('admin.')->prefix('admin')->group(function () {
+    // Route::middleware([AdminMiddleware::class])->name('admin.')->prefix('admin')->group(function () {
 
-    });
+    // });
 });
