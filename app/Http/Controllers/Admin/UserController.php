@@ -7,6 +7,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Symfony\Component\VarDumper\Caster\RedisCaster;
 
 class UserController extends Controller
@@ -61,24 +62,45 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $users=User::findOrFail($id);
+        return view('admin.user.edit',compact('users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $users=User::findOrFail($id);
+        $request->validate([
+            'name'=>'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($users->id),
+            ],
+            'password' => 'nullable|string|min:8',
+        ]);
+        
+        $users->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$request->password ? $request->password : $users->password,
+        ]);
+        return redirect()->route('superadmin.user.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $users=User::findOrFail($id);
+        $users->delete();
+        return redirect()->route('superadmin.user.index');
     }
 }

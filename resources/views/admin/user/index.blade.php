@@ -23,7 +23,19 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->password }}</td>
                     <td>{{ $user->role }}</td>
-                    <td><span><a href="javascript:void()" class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted"></i> </a><a href="javascript:void()" data-toggle="tooltip" data-placement="top" title="Close"><i class="fa fa-close color-danger"></i></a></span>
+                    <td>
+                        <span>
+                            <a href="{{ route('superadmin.user.edit',$user->id) }}" class="mr-4" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <i class="fa fa-pencil color-muted"></i> 
+                            </a>
+                                <form action="{{ route('superadmin.user.destroy',$user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Hapus">
+                                        <i class="fa fa-close color-danger"></i>
+                                    </button>
+                                </form>
+                            </span>
                     </td>
                 </tr>
                 @endforeach
