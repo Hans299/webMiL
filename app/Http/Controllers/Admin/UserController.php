@@ -85,13 +85,17 @@ class UserController extends Controller
             ],
             'password' => 'nullable|string|min:8',
         ]);
-        
-        $users->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>$request->password ? $request->password : $users->password,
+        try{
+            $users->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'password' => $request->password ? bcrypt($request->password) : $users->password,
         ]);
-        return redirect()->route('superadmin.user.index');
+            return redirect()->route('superadmin.user.index')->with('success', 'User  updated successfully.'); 
+        }catch(\Exception $e){
+            return redirect()->route('superadmin.user.index')->with('error', 'Failed to update user: ' . $e->getMessage());
+        }
+        
     }
 
     /**
