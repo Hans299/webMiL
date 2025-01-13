@@ -82,7 +82,7 @@ class UserController extends Controller
                 'email',
                 'max:255',
                 Rule::unique('users')->ignore($users->id),
-            ],
+            ], 
             'password' => 'nullable|string|min:8',
         ]);
         try{

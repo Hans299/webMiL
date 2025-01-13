@@ -19,11 +19,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[dashboardController::class,'index']);
+    // Route::resource('berita',beritaController::class);
     Route::middleware([superAdminMiddleware::class])->name('superadmin.')->prefix('superadmin')->group(function () {
         Route::resource('user', UserController::class);
 
-    });
-    
+    });   
     //
     // Route::middleware([AdminMiddleware::class])->name('admin.')->prefix('admin')->group(function () {
 
