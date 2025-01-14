@@ -122,10 +122,8 @@
                     </li> 
                     @endif
                     <li class="nav-label">Apps</li>
-                    <li><a class="" href="javascript:void()" aria-expanded="false"><i
+                    <li><a class="" href="{{ route('berita.index') }}" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">Berita</span></a>
-                        <ul aria-expanded="false">
-                        </ul>
                     </li>
                     <li class="nav-label">Components</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i

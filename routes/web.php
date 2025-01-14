@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\dashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[dashboardController::class,'index']);
-    // Route::resource('berita',beritaController::class);
+    Route::resource('berita',BeritaController::class);
     Route::middleware([superAdminMiddleware::class])->name('superadmin.')->prefix('superadmin')->group(function () {
         Route::resource('user', UserController::class);
 
